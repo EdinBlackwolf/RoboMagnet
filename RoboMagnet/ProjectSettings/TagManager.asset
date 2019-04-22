@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Positive
+  - Negative
+  - NegativeHandSurfaceAttraction
+  - PositiveHandSurfaceAttraction
+  - LeftArm
+  - RightArm
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PostProcessing
+  - Back
+  - Robot
+  - Front
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: back
+    uniqueID: 1684154333
+    locked: 0
+  - name: robo
+    uniqueID: 3191992613
+    locked: 0
+  - name: front
+    uniqueID: 3531356263
+    locked: 0
