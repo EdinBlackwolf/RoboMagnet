@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotmagnetismScript : MonoBehaviour
+/*public class RobotmagnetismScript : MonoBehaviour
 {
     public bool Positive;
     public bool Negative;
@@ -64,6 +64,7 @@ public class RobotmagnetismScript : MonoBehaviour
             
         }
     }
+
     //void OnTriggerStay2D(Collider2D other)
     //{
     //    if (other.gameObject.tag == "Negative")
@@ -78,5 +79,5 @@ public class RobotmagnetismScript : MonoBehaviour
     //        }
     //    }
     //}
-}
+}*/
 

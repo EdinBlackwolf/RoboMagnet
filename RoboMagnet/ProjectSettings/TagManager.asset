@@ -10,6 +10,8 @@ TagManager:
   - PositiveHandSurfaceAttraction
   - LeftArm
   - RightArm
+  - Platform
+  - Robo
   layers:
   - Default
   - TransparentFX
