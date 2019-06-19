@@ -11,10 +11,11 @@ public class RobotController : MonoBehaviour
     public float leaningLimit;
     public float leaningDuration;
 
-    public bool isGrounded;
+    public bool isGoingRight;
 
     public GameObject head;
-
+    public GameObject body;
+    
     public Rigidbody2D roboRB;
     
     private KeyCode currentlyPressed;
@@ -38,11 +39,8 @@ public class RobotController : MonoBehaviour
     {
         float movX = Input.GetAxis("Horizontal");
 
-        if (isGrounded)
-        {
-            roboRB.velocity = new Vector2(movX * movementSpeed, 0);
-        }
-
+        roboRB.velocity = new Vector2(movX * movementSpeed, 0);
+        
         LeanTween();
     }
 
@@ -70,21 +68,5 @@ public class RobotController : MonoBehaviour
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; //take the angle between the vectors.
 
         head.transform.rotation = Quaternion.AngleAxis(angle,Vector3.forward); //head looks forward
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if(other.collider.CompareTag("Platform"))
-        {
-            isGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Platform"))
-        {
-            isGrounded = false;
-        }
     }
 }
