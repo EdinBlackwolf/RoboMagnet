@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 307844155}
   - component: {fileID: 307844154}
   m_Layer: 14
-  m_Name: GameObject
+  m_Name: NegativeEffector
   m_TagString: Effector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1330,7 +1330,7 @@ GameObject:
   - component: {fileID: 1824413790}
   - component: {fileID: 1824413789}
   m_Layer: 14
-  m_Name: GameObject
+  m_Name: PositiveEffector
   m_TagString: Effector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
