@@ -12,6 +12,9 @@ TagManager:
   - RightArm
   - Platform
   - Robo
+  - Effector
+  - SmallItem
+  - LargeItem
   layers:
   - Default
   - TransparentFX
@@ -25,9 +28,9 @@ TagManager:
   - Back
   - Robot
   - Front
-  - 
-  - 
-  - 
+  - Small
+  - Medium
+  - Magnet
   - 
   - 
   - 
