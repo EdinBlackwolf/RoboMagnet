@@ -9,6 +9,8 @@ public class MagnetScript : MonoBehaviour
     public GameObject rightArm;
     public GameObject Llimit;
     public GameObject Rlimit;
+    public GameObject holdLeft;
+    public GameObject holdRight;
     public float pullForce;
     Rigidbody2D rb;
     bool inContact;
@@ -18,10 +20,9 @@ public class MagnetScript : MonoBehaviour
         rb = GetComponentInParent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        RightRay();
-        LeftRay();
+        magnetManager();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -39,9 +40,11 @@ public class MagnetScript : MonoBehaviour
     private void LeftRay()
     {
         RaycastHit2D hitInfo;
+        RaycastHit2D hitInfoSmall;
         Debug.DrawLine(leftArm.transform.position, Llimit.transform.position, Color.green);
         hitInfo = Physics2D.Linecast(leftArm.transform.position,Llimit.transform.position, 1 << LayerMask.NameToLayer("Magnet"));
-        if(hitInfo.collider != null && hitInfo.collider.tag == "Negative")
+        hitInfoSmall = Physics2D.Linecast(leftArm.transform.position, Llimit.transform.position, 1 << LayerMask.NameToLayer("Small"));
+        if (hitInfo.collider != null && hitInfo.collider.tag == "Negative")
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
@@ -64,27 +67,21 @@ public class MagnetScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                PointEffector2D[] effectoriod = FindObjectsOfType<PointEffector2D>();
-                foreach (PointEffector2D o in effectoriod)
-                {
-                    if (o.gameObject.scene == gameObject.scene && o != null)
-                    {
-                        o.enabled = true;
-                    }
-                }
+                hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
             }
         }
-        else
+        else if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
         {
-            PointEffector2D[] effector = FindObjectsOfType<PointEffector2D>();
-            foreach (PointEffector2D o in effector)
+            if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (o.gameObject.scene == gameObject.scene && o != null)
-                {
-                    o.enabled = false;
-                }
+                //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 100);
+                hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.001f);
             }
-            rb.constraints = RigidbodyConstraints2D.None;
+            else
+            {
+                //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            }
         }
     }
     private void RightRay()
@@ -115,15 +112,25 @@ public class MagnetScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse1))
             {
-                PointEffector2D[] effectoriod = FindObjectsOfType<PointEffector2D>();
-                foreach (PointEffector2D o in effectoriod)
-                {
-                    if (o.gameObject.scene == gameObject.scene && o != null)
-                    {
-                        o.enabled = true;
-                    }
-                }
+                hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
             }
+        }
+    }
+
+    void magnetManager()
+    {
+        if (Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
+        {
+            RightRay();
+            LeftRay();
+        }
+        else if (Input.GetKey(KeyCode.Mouse0))
+        {
+            LeftRay();
+        }
+        else if (Input.GetKey(KeyCode.Mouse1))
+        {
+            RightRay();
         }
         else
         {
