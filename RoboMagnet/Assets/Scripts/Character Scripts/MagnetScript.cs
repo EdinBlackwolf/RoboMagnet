@@ -75,32 +75,33 @@ public class MagnetScript : MonoBehaviour
                 hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
             }
         }
-        //else if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
-        //{
-        //    if (Input.GetKey(KeyCode.Mouse0))
-        //    {
-        //        if(Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 1)
-        //        {
-        //            print("he");
-        //            //hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.1f);
-        //            //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        //            hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 50);
-        //        }
+        else if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
+        {
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                if (Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 1)
+                {
+                    print("he");
+                    
+                    //hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.1f);
+                    //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 50);
+                }
 
-        //        //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        //        //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 2);
-        //        else
-        //        {
-
-        //            hitInfoSmall.transform.position = holdLeft.transform.position;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        //    }
-        //}
-        //LCollider.enabled = true;
+                //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 2);
+                else
+                {
+                    hitInfoSmall.transform.position = holdLeft.transform.position;
+                    //hitInfoSmall.transform.parent = holdLeft.transform.parent;
+                }
+            }
+            else
+            {
+                //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            }
+        }
+        LCollider.enabled = true;
     }
     private void RightRay()
     {
