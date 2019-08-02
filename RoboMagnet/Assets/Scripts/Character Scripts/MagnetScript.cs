@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class MagnetScript : MonoBehaviour
 {
+    PointEffector2D LCollider;
+    PointEffector2D RCollider;
     public GameObject leftArm;
     public GameObject rightArm;
     public GameObject Llimit;
@@ -12,17 +14,20 @@ public class MagnetScript : MonoBehaviour
     public GameObject holdLeft;
     public GameObject holdRight;
     public float pullForce;
+    bool hmmm;
     Rigidbody2D rb;
     bool inContact;
 
     void Start()
     {
         rb = GetComponentInParent<Rigidbody2D>();
+        LCollider = GetComponentInChildren<PointEffector2D>();
+        RCollider = GetComponentInChildren<PointEffector2D>();
     }
 
     void Update()
     {
-        magnetManager();
+        MagnetManager();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -74,15 +79,29 @@ public class MagnetScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
+                if (Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 1)
+                {
+                    print("he");
+                    
+                    //hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.1f);
+                    //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 50);
+                }
+
                 //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 100);
-                hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.001f);
+                //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 2);
+                else
+                {
+                    hitInfoSmall.transform.position = holdLeft.transform.position;
+                    //hitInfoSmall.transform.parent = holdLeft.transform.parent;
+                }
             }
             else
             {
                 //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             }
         }
+        LCollider.enabled = true;
     }
     private void RightRay()
     {
@@ -115,9 +134,10 @@ public class MagnetScript : MonoBehaviour
                 hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
             }
         }
+        //RCollider.enabled = true;
     }
 
-    void magnetManager()
+    void MagnetManager()
     {
         if (Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
         {
