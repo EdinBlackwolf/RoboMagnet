@@ -82,6 +82,7 @@ public class MagnetScript : MonoBehaviour
                 if (Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 1)
                 {
                     print("he");
+                    
                     //hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.1f);
                     //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                     hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 50);
@@ -91,8 +92,8 @@ public class MagnetScript : MonoBehaviour
                 //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 2);
                 else
                 {
-
                     hitInfoSmall.transform.position = holdLeft.transform.position;
+                    //hitInfoSmall.transform.parent = holdLeft.transform.parent;
                 }
             }
             else
