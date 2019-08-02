@@ -15,6 +15,7 @@ TagManager:
   - Effector
   - SmallItem
   - LargeItem
+  - Bullet
   layers:
   - Default
   - TransparentFX

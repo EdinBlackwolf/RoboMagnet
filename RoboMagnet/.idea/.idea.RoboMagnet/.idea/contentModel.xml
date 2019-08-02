@@ -22,10 +22,14 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="Character Scripts" t="Include">
+            <e p="BulletScript.cs" t="Include" />
+            <e p="MagnetScript.cs" t="Include" />
             <e p="RobotController.cs" t="Include" />
+            <e p="TurretScript.cs" t="Include" />
           </e>
           <e p="Environment Scripts" t="Include">
             <e p="Autosave.cs" t="Include" />
+            <e p="CameraController.cs" t="Include" />
           </e>
         </e>
       </e>

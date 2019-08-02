@@ -13,6 +13,7 @@ public class RobotController : MonoBehaviour
     public float wheelSpeed;
 
     public bool isGrounded;
+    public bool isMoving;
 
     public GameObject head;
     public GameObject leftArm;
@@ -66,7 +67,17 @@ public class RobotController : MonoBehaviour
             roboRB.velocity = new Vector2(movX * movementSpeed, 0);
         }
 
+        if (roboRB.velocity.magnitude > 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
         LeanTween();
+
     }
 
     void LeanTween()
