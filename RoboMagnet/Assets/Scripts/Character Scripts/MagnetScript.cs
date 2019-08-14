@@ -51,28 +51,48 @@ public class MagnetScript : MonoBehaviour
         hitInfoSmall = Physics2D.Linecast(leftArm.transform.position, Llimit.transform.position, 1 << LayerMask.NameToLayer("Small"));
         if (hitInfo.collider != null && hitInfo.collider.tag == "Negative")
         {
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                if (!inContact)
-                {
-                    transform.position = Vector3.Slerp(transform.position, hitInfo.transform.position, Time.deltaTime * pullForce);
-                    rb.constraints = RigidbodyConstraints2D.None;
-                }
-                else if (inContact)
-                {
-                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                }
-            }
-            else
+            //if (Input.GetKey(KeyCode.Mouse0))
+            //{
+            //    if (!inContact)
+            //    {
+            //        transform.position = Vector3.Slerp(transform.position, hitInfo.transform.position, Time.deltaTime * pullForce);
+            //        rb.constraints = RigidbodyConstraints2D.None;
+            //    }
+            //    else if (inContact)
+            //    {
+            //        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            //    }
+            //}
+            //else
+            //{
+            //    rb.constraints = RigidbodyConstraints2D.None;
+            //}
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = -10000;
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
+            if (!inContact)
             {
                 rb.constraints = RigidbodyConstraints2D.None;
+            }
+            else if (inContact)
+            {
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
         else if(hitInfo.collider != null && hitInfo.collider.tag == "Positive")
         {
-            if (Input.GetKey(KeyCode.Mouse0))
+            //if (Input.GetKey(KeyCode.Mouse0))
+            //{
+            //    hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
+            //}
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = 10000;
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
+            if (!inContact)
             {
-                hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
+                rb.constraints = RigidbodyConstraints2D.None;
+            }
+            else if (inContact)
+            {
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
         else if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
@@ -112,26 +132,48 @@ public class MagnetScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse1))
             {
-                if (!inContact)
+                if (Input.GetKey(KeyCode.Mouse1))
                 {
-                    transform.position = Vector3.Slerp(transform.position, hitInfo.transform.position, Time.deltaTime * pullForce);
-                    rb.constraints = RigidbodyConstraints2D.None;
+                    hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = -10000;
+                    hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
+                    if (!inContact)
+                    {
+                        rb.constraints = RigidbodyConstraints2D.None;
+                    }
+                    else if (inContact)
+                    {
+                        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
                 }
-                else if (inContact)
-                {
-                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                }
-            }
-            else
-            {
-                rb.constraints = RigidbodyConstraints2D.None;
+                //    if (!inContact)
+                //    {
+                //        transform.position = Vector3.Slerp(transform.position, hitInfo.transform.position, Time.deltaTime * pullForce);
+                //        rb.constraints = RigidbodyConstraints2D.None;
+                //    }
+                //    else if (inContact)
+                //    {
+                //        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                //    }
+                //}
+                //else
+                //{
+                //    rb.constraints = RigidbodyConstraints2D.None;
             }
         }
         else if (hitInfo.collider != null && hitInfo.collider.tag == "Negative")
         {
             if (Input.GetKey(KeyCode.Mouse1))
             {
+                hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = 10000;
                 hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
+                //if (!inContact)
+                //{
+                //    rb.constraints = RigidbodyConstraints2D.None;
+                //}
+                //else if (inContact)
+                //{
+                //    rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                //}
             }
         }
         //RCollider.enabled = true;
