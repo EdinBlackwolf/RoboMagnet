@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor.Experimental.GraphView;
+using UnityEditorInternal;
 using UnityEngine.Serialization;
 
 public class RobotController : MonoBehaviour
@@ -11,17 +13,20 @@ public class RobotController : MonoBehaviour
     public float leaningLimit;
     public float leaningDuration;
     public float wheelSpeed;
-
+    private float _distanceGround;
+ 
+    public bool isGoingRight;
+    public bool isGoingLeft;
     public bool isGrounded;
-
+    
     public GameObject head;
     public GameObject leftArm;
     public GameObject rightArm;
     public GameObject wheel;
 
     public Rigidbody2D roboRB;
-    
-    private KeyCode currentlyPressed;
+
+    private Collider2D _wheelCol;
     
     #region Singleton
 
@@ -44,6 +49,8 @@ public class RobotController : MonoBehaviour
     void Start()
     {
         roboRB = GetComponent<Rigidbody2D>();
+
+       // _wheelCol = wheel.GetComponent<Collider2D>();
     }
 
     void Update()
@@ -60,44 +67,67 @@ public class RobotController : MonoBehaviour
     void BasicMovement()
     {
         float movX = Input.GetAxis("Horizontal");
-
+        
         if (isGrounded)
         {
             roboRB.velocity = new Vector2(movX * movementSpeed, 0);
         }
 
-        LeanTween();
-    }
+        if (movX > 0)
+        {
+            isGoingRight = true;
+        }
+        else
+        {
+            isGoingRight = false;
+        }
 
-    void LeanTween()
+        if (movX < 0)
+        {
+            isGoingLeft = true;
+        }
+        else
+        {
+            isGoingLeft = false;
+        }
+
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) //this is here to eliminate the delay of the movX.
+        {
+            isGoingLeft = false;
+            isGoingRight = false;
+        }
+        
+        LeanTween();
+        WheelTurn();
+        
+    }
+    
+    void WheelTurn()
     {
         if (Input.GetKey(KeyCode.D))
         {
-            gameObject.transform.DORotate(new Vector3(0,0,-leaningLimit), leaningDuration);
-            WheelTurn(true);
+            wheel.transform.localEulerAngles += new Vector3(0,0,-wheelSpeed); //turns right.
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            gameObject.transform.DORotate(new Vector3(0,0,leaningLimit), leaningDuration);
-            WheelTurn(false);
-        }
-        
-        if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            gameObject.transform.DORotate(new Vector3(0,0,0), leaningDuration);
+            wheel.transform.localEulerAngles += new Vector3(0,0,wheelSpeed); //turns left.
         }
     }
 
-    void WheelTurn(bool isGoingRight)
+    void LeanTween()
     {
         if (isGoingRight)
         {
-            wheel.transform.localEulerAngles += new Vector3(0,0,-wheelSpeed); //turns right.
+            
+        }
+        else if (isGoingLeft)
+        {
+            
         }
         else
         {
-            wheel.transform.localEulerAngles += new Vector3(0,0,wheelSpeed); //turns left.
+            
         }
     }
 
@@ -130,7 +160,7 @@ public class RobotController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.collider.CompareTag("Platform"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
@@ -138,7 +168,7 @@ public class RobotController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Platform"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
         }
