@@ -10,12 +10,12 @@ TagManager:
   - PositiveHandSurfaceAttraction
   - LeftArm
   - RightArm
-  - Platform
   - Robo
   - Effector
   - SmallItem
   - LargeItem
   - Bullet
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -32,7 +32,7 @@ TagManager:
   - Small
   - Medium
   - Magnet
-  - 
+  - Ground
   - 
   - 
   - 

@@ -30,6 +30,7 @@
           <e p="Environment Scripts" t="Include">
             <e p="Autosave.cs" t="Include" />
             <e p="CameraController.cs" t="Include" />
+            <e p="ObjectManager.cs" t="Include" />
           </e>
         </e>
       </e>
