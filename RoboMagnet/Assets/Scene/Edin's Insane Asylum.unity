@@ -363,7 +363,7 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1024
   m_ForceMagnitude: -10000
   m_ForceVariation: 0
   m_DistanceScale: 1
@@ -1028,7 +1028,7 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1024
   m_ForceMagnitude: 50
   m_ForceVariation: 0
   m_DistanceScale: 1
@@ -1155,6 +1155,7 @@ MonoBehaviour:
   holdLeft: {fileID: 0}
   holdRight: {fileID: 0}
   pullForce: 0
+  pushForce: 0
 --- !u!58 &1945189732
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1434,6 +1435,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoboBoi2
       objectReference: {fileID: 0}
+    - target: {fileID: 1715698199632619687, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1715698199632619736, guid: 0e0064b73ad3e91498d396e12b061573,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1488,6 +1494,71 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199632619686, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199632619739, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: pullForce
+      value: -10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199632619739, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: pushForce
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199370646725, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199755161694, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199243711969, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698200013844498, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199240591422, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698200483005067, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698200306591532, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698200435707685, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698199988362524, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715698200121523072, guid: 0e0064b73ad3e91498d396e12b061573,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e0064b73ad3e91498d396e12b061573, type: 3}

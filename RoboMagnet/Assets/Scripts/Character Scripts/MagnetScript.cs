@@ -14,7 +14,7 @@ public class MagnetScript : MonoBehaviour
     public GameObject holdLeft;
     public GameObject holdRight;
     public float pullForce;
-    bool hmmm;
+    public float pushForce;
     Rigidbody2D rb;
     bool inContact;
 
@@ -51,49 +51,17 @@ public class MagnetScript : MonoBehaviour
         hitInfoSmall = Physics2D.Linecast(leftArm.transform.position, Llimit.transform.position, 1 << LayerMask.NameToLayer("Small"));
         if (hitInfo.collider != null && hitInfo.collider.tag == "Negative")
         {
-            //if (Input.GetKey(KeyCode.Mouse0))
-            //{
-            //    if (!inContact)
-            //    {
-            //        transform.position = Vector3.Slerp(transform.position, hitInfo.transform.position, Time.deltaTime * pullForce);
-            //        rb.constraints = RigidbodyConstraints2D.None;
-            //    }
-            //    else if (inContact)
-            //    {
-            //        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            //    }
-            //}
-            //else
-            //{
-            //    rb.constraints = RigidbodyConstraints2D.None;
-            //}
-            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = -10000;
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = pullForce;
             hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
-            if (!inContact)
-            {
-                rb.constraints = RigidbodyConstraints2D.None;
-            }
-            else if (inContact)
-            {
-                rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            }
         }
         else if(hitInfo.collider != null && hitInfo.collider.tag == "Positive")
         {
-            //if (Input.GetKey(KeyCode.Mouse0))
-            //{
-            //    hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
-            //}
-            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = 10000;
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = pushForce;
             hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
-            if (!inContact)
-            {
-                rb.constraints = RigidbodyConstraints2D.None;
-            }
-            else if (inContact)
-            {
-                rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            }
+        }
+        else if (hitInfo.collider == null)
+        {
+            deactivateMangets();
         }
         else if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
         {
@@ -101,8 +69,7 @@ public class MagnetScript : MonoBehaviour
             {
                 if (Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 1)
                 {
-                    print("he");
-                    
+                    print("Grabbed");                    
                     //hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.1f);
                     //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                     hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 50);
@@ -130,53 +97,18 @@ public class MagnetScript : MonoBehaviour
         hitInfo = Physics2D.Linecast(rightArm.transform.position, Rlimit.transform.position, 1 << LayerMask.NameToLayer("Magnet"));
         if (hitInfo.collider != null && hitInfo.collider.tag == "Positive")
         {
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                if (Input.GetKey(KeyCode.Mouse1))
-                {
-                    hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = -10000;
-                    hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
-                    if (!inContact)
-                    {
-                        rb.constraints = RigidbodyConstraints2D.None;
-                    }
-                    else if (inContact)
-                    {
-                        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                    }
-                }
-                //    if (!inContact)
-                //    {
-                //        transform.position = Vector3.Slerp(transform.position, hitInfo.transform.position, Time.deltaTime * pullForce);
-                //        rb.constraints = RigidbodyConstraints2D.None;
-                //    }
-                //    else if (inContact)
-                //    {
-                //        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                //    }
-                //}
-                //else
-                //{
-                //    rb.constraints = RigidbodyConstraints2D.None;
-            }
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = pullForce;
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;        
         }
         else if (hitInfo.collider != null && hitInfo.collider.tag == "Negative")
         {
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = 10000;
-                hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
-                //if (!inContact)
-                //{
-                //    rb.constraints = RigidbodyConstraints2D.None;
-                //}
-                //else if (inContact)
-                //{
-                //    rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                //}
-            }
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = pushForce;
+            hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
         }
-        //RCollider.enabled = true;
+        else if (hitInfo.collider == null)
+        {
+            deactivateMangets();
+        }
     }
 
     void MagnetManager()
@@ -196,15 +128,21 @@ public class MagnetScript : MonoBehaviour
         }
         else
         {
-            PointEffector2D[] effector = FindObjectsOfType<PointEffector2D>();
-            foreach (PointEffector2D o in effector)
-            {
-                if (o.gameObject.scene == gameObject.scene && o != null)
-                {
-                    o.enabled = false;
-                }
-            }
+            deactivateMangets();
             rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+    }
+
+    void deactivateMangets()
+    {
+        PointEffector2D[] effector = FindObjectsOfType<PointEffector2D>();
+        foreach (PointEffector2D o in effector)
+        {
+            if (o.gameObject.scene == gameObject.scene && o != null)
+            {
+                o.enabled = false;
+            }
         }
     }
 }
