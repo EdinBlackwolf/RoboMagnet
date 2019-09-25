@@ -13,6 +13,9 @@ public class MagnetScript : MonoBehaviour
     public GameObject Rlimit;
     public GameObject holdLeft;
     public GameObject holdRight;
+
+    public Transform ColliderTransform;
+
     public float pullForce;
     public float pushForce;
     Rigidbody2D rb;
@@ -42,6 +45,24 @@ public class MagnetScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "SmallItem")
+        {
+            ColliderTransform.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+            print("0");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "SmallItem")
+        {
+            ColliderTransform.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
+            print("1");
+        }
+    }
+
     private void LeftRay()
     {
         RaycastHit2D hitInfo;
@@ -63,14 +84,24 @@ public class MagnetScript : MonoBehaviour
         {
             deactivateMangets();
         }
-        else if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
+        if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
         {
+            
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 1)
+                //Debug.Log(Vector3.Distance(hitInfoSmall.transform.position, transform.position));
+                //hitInfoSmall.transform.GetComponent<Rigidbody2D>().mass = 0;
+                if (Vector3.Distance(hitInfoSmall.transform.position, transform.position) < 10f)
                 {
                     print("Grabbed");
-                    hitInfoSmall.transform.GetComponent<ItemScript>().grabbedLeft = true;
+                    
+                    hitInfoSmall.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    hitInfoSmall.transform.GetComponent<Rigidbody2D>().angularVelocity = 0;
+                    hitInfoSmall.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+                    hitInfoSmall.transform.parent = holdLeft.transform;
+                    //hitInfoSmall.transform.GetComponent<ItemScript>().grabbedLeft = true;
+
+
                     //hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.1f);
                     //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                     //hitInfoSmall.transform.position = Vector3.Lerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 50);
@@ -78,10 +109,13 @@ public class MagnetScript : MonoBehaviour
 
                 //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                 //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 2);
-                else
+                else if(Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 10f)
                 {
+                    LCollider.enabled = true;
+                    holdLeft.transform.DetachChildren();
+                    //hitInfoSmall.collider.GetComponent<PointEffector2D>().enabled = true;
+                    //holdLeft.GetComponent<PointEffector2D>().enabled = true;
                     //hitInfoSmall.transform.position = holdLeft.transform.position;
-                   // hitInfoSmall.transform.parent = holdLeft.transform.parent;
                 }
             }
             else
@@ -89,7 +123,12 @@ public class MagnetScript : MonoBehaviour
                 //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             }
         }
-        LCollider.enabled = true;
+        else if(hitInfoSmall.collider == null)
+        {
+            print("detach");
+            holdLeft.transform.DetachChildren();
+        }
+
     }
     private void RightRay()
     {
