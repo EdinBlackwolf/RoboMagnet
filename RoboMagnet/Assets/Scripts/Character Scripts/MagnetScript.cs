@@ -13,6 +13,7 @@ public class MagnetScript : MonoBehaviour
     public GameObject Rlimit;
     public GameObject holdLeft;
     public GameObject holdRight;
+    public BoxCollider2D LeftCollider;
 
     public Transform ColliderTransform;
 
@@ -86,47 +87,16 @@ public class MagnetScript : MonoBehaviour
         }
         if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
         {
-            
+
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                //Debug.Log(Vector3.Distance(hitInfoSmall.transform.position, transform.position));
-                //hitInfoSmall.transform.GetComponent<Rigidbody2D>().mass = 0;
-                if (Vector3.Distance(hitInfoSmall.transform.position, transform.position) < 10f)
-                {
-                    print("Grabbed");
-                    
-                    hitInfoSmall.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    hitInfoSmall.transform.GetComponent<Rigidbody2D>().angularVelocity = 0;
-                    hitInfoSmall.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
-                    hitInfoSmall.transform.parent = holdLeft.transform;
-                    //hitInfoSmall.transform.GetComponent<ItemScript>().grabbedLeft = true;
-
-
-                    //hitInfoSmall.transform.DOMove(holdLeft.transform.position, 0.1f);
-                    //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                    //hitInfoSmall.transform.position = Vector3.Lerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 50);
-                }
-
-                //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                //hitInfoSmall.transform.position = Vector3.Slerp(hitInfoSmall.transform.position, holdLeft.transform.position, Time.deltaTime * 2);
-                else if(Vector3.Distance(hitInfoSmall.transform.position, holdLeft.transform.position) > 10f)
-                {
-                    LCollider.enabled = true;
-                    holdLeft.transform.DetachChildren();
-                    //hitInfoSmall.collider.GetComponent<PointEffector2D>().enabled = true;
-                    //holdLeft.GetComponent<PointEffector2D>().enabled = true;
-                    //hitInfoSmall.transform.position = holdLeft.transform.position;
-                }
-            }
-            else
-            {
-                //hitInfoSmall.collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                
             }
         }
         else if(hitInfoSmall.collider == null)
         {
-            print("detach");
-            holdLeft.transform.DetachChildren();
+            //print("detach");
+            //holdLeft.transform.DetachChildren();
         }
 
     }

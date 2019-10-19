@@ -415,6 +415,8 @@ MonoBehaviour:
   leaningLimit: 20
   leaningDuration: 1
   wheelSpeed: 7
+  isGoingRight: 0
+  isGoingLeft: 0
   isGrounded: 0
   head: {fileID: 1984546398869056821}
   leftArm: {fileID: 1984546397565208331}
@@ -441,7 +443,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1984546398562660919
 GameObject:
   m_ObjectHideFlags: 0
