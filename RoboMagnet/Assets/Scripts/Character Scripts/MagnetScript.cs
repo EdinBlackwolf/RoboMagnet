@@ -14,11 +14,15 @@ public class MagnetScript : MonoBehaviour
     public GameObject holdLeft;
     public GameObject holdRight;
     public BoxCollider2D LeftCollider;
-
+    GameObject armItemFinder;
     public Transform ColliderTransform;
 
     public float pullForce;
     public float pushForce;
+    GameObject armItemFinderPlus;
+    GameObject armItemFinderMinus;
+
+
     Rigidbody2D rb;
     bool inContact;
 
@@ -27,6 +31,9 @@ public class MagnetScript : MonoBehaviour
         rb = GetComponentInParent<Rigidbody2D>();
         LCollider = GetComponentInChildren<PointEffector2D>();
         RCollider = GetComponentInChildren<PointEffector2D>();
+        armItemFinder = GameObject.Find("ItemHoldingPositionPositive");
+        armItemFinderPlus = GameObject.Find("ItemHoldingPositionPositive");
+        armItemFinderMinus = GameObject.Find("ItemHoldingPositionNegative");
     }
 
     void Update()
@@ -66,6 +73,7 @@ public class MagnetScript : MonoBehaviour
 
     private void LeftRay()
     {
+        armItemFinderMinus.gameObject.GetComponent<PointEffector2D>().enabled = true;
         RaycastHit2D hitInfo;
         RaycastHit2D hitInfoSmall;
         Debug.DrawLine(leftArm.transform.position, Llimit.transform.position, Color.green);
@@ -81,27 +89,14 @@ public class MagnetScript : MonoBehaviour
             hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = pushForce;
             hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
         }
-        else if (hitInfo.collider == null)
-        {
-            deactivateMangets();
-        }
-        if (hitInfoSmall.collider != null && hitInfoSmall.collider.tag == "SmallItem")
-        {
-
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                
-            }
-        }
-        else if(hitInfoSmall.collider == null)
-        {
-            //print("detach");
-            //holdLeft.transform.DetachChildren();
-        }
-
+        //else if (hitInfo.collider == null)
+        //{
+        //    deactivateMangets();
+        //}
     }
     private void RightRay()
     {
+        armItemFinderPlus.gameObject.GetComponent<PointEffector2D>().enabled = true;
         RaycastHit2D hitInfo;
         Debug.DrawLine(rightArm.transform.position, Rlimit.transform.position, Color.magenta);
         hitInfo = Physics2D.Linecast(rightArm.transform.position, Rlimit.transform.position, 1 << LayerMask.NameToLayer("Magnet"));
@@ -115,10 +110,10 @@ public class MagnetScript : MonoBehaviour
             hitInfo.collider.GetComponentInChildren<PointEffector2D>().forceMagnitude = pushForce;
             hitInfo.collider.GetComponentInChildren<PointEffector2D>().enabled = true;
         }
-        else if (hitInfo.collider == null)
-        {
-            deactivateMangets();
-        }
+        //else if (hitInfo.collider == null)
+        //{
+        //    deactivateMangets();
+        //}
     }
 
     void MagnetManager()
