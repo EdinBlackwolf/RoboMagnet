@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Izel\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Izel\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_RoboMagnet.783243728.00" t="ExcludeRecursive" />
+    <e p="C:\Users\izell\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\izell\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_RoboMagnet.783243728.00" t="ExcludeRecursive" />
     <e p="D:\Work\Backwards Intelligence\RoboMagnet\RoboMagnet" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -23,6 +23,7 @@
         <e p="Scripts" t="Include">
           <e p="Character Scripts" t="Include">
             <e p="BulletScript.cs" t="Include" />
+            <e p="ItemScript.cs" t="Include" />
             <e p="MagnetScript.cs" t="Include" />
             <e p="RobotController.cs" t="Include" />
             <e p="TurretScript.cs" t="Include" />
@@ -31,6 +32,9 @@
             <e p="Autosave.cs" t="Include" />
             <e p="CameraController.cs" t="Include" />
             <e p="ObjectManager.cs" t="Include" />
+          </e>
+          <e p="Object Scripts" t="Include">
+            <e p="ChangeableMagnet.cs" t="Include" />
           </e>
         </e>
       </e>
