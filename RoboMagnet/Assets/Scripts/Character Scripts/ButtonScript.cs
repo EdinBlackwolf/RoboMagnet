@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class ButtonScript : MonoBehaviour
 {
-
+    Vector2 upperCord;
+    Vector2 lowerCord;
     SpringJoint2D spring;
     public Rigidbody2D button;
     public bool buttonPressed = false;
+    public GameObject upperDoor;
+    public GameObject lowerDoor;
 
     // Start is called before the first frame update
     void Start()
     {
+        upperCord = upperDoor.transform.position + upperDoor.transform.up * 10f;
+        lowerCord = lowerDoor.transform.position + lowerDoor.transform.up * -10f;
         spring = gameObject.GetComponent<SpringJoint2D>();
         if (transform.eulerAngles.z == 0 || transform.eulerAngles.z == 180)
         {
@@ -39,7 +44,7 @@ public class ButtonScript : MonoBehaviour
         }
         else if(transform.eulerAngles.z == 180)
         {
-            if (spring.reactionForce.x < -300f)
+            if (spring.reactionForce.x < -150f)
             {
                 button.constraints = RigidbodyConstraints2D.FreezeAll;
                 buttonPressed = true;
@@ -60,6 +65,15 @@ public class ButtonScript : MonoBehaviour
                 button.constraints = RigidbodyConstraints2D.FreezeAll;
                 buttonPressed = true;
             }
+        }
+
+
+        if (buttonPressed)
+        {
+            upperDoor.transform.position = Vector3.Lerp(upperDoor.transform.position, upperCord, Time.deltaTime * 1);
+            lowerDoor.transform.position = Vector3.Lerp(lowerDoor.transform.position, lowerCord, Time.deltaTime * 1);
+            upperDoor.GetComponent<BoxCollider2D>().enabled = false;
+            lowerDoor.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
